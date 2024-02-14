@@ -1,0 +1,50 @@
+[
+    {
+        "user_id": 1,
+        "username": "dhruvpatel",
+        "email": "dhruvansh@mailinator.com",
+        "password": "password123"
+    },
+    {
+        "user_id": 2,
+        "username": "preet",
+        "email": "preet@mailinator.com",
+        "password": "password1234"
+    },
+    {
+        "user_id": 3,
+        "username": "Harshil",
+        "email": "harshil@mailinator.com",
+        "password": "harshil123"
+    },
+    {
+        "user_id": 4,
+        "username": "ankit",
+        "email": "ankit@mailinator.com",
+        "password": "ankit123"
+    },
+    {
+        "user_id": 5,
+        "username": "jaksh",
+        "email": "jaksh@mailinator.com",
+        "password": "jaksh1234"
+    },
+    {
+        "user_id": 6,
+        "username": "brijesh",
+        "email": "brijesh@mailinator.com",
+        "password": "dea57c1969299348b649732a6ba658569a45b348a19f58f1dc6990a7a750a6ae"
+    },
+    {
+        "user_id": 7,
+        "username": "dhruv",
+        "email": "dhruv@mailinator.com",
+        "password": "222beb0e2deb4631b0e0db0f626119c9d40699aeb37a1865378275eedb707eeb"
+    },
+    {
+        "user_id": 8,
+        "username": "dev",
+        "email": "dev@mailinator.com",
+        "password": "a78f8128f2109434daf14d867c665d97a242909409b29bc0a965111d8a4a9f80"
+    }
+]
