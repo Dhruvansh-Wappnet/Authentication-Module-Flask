@@ -73,8 +73,8 @@ def send_email(to, subject, body):
         "MAIL_SERVER": "smtp.gmail.com",
         "MAIL_PORT": 587,
         "MAIL_USE_TLS": True,
-        "MAIL_USERNAME": "dev1.wappnet@gmail.com",
-        "MAIL_PASSWORD": "gspkqdskosxfstyq",
+        "MAIL_USERNAME": "",
+        "MAIL_PASSWORD": "",
     }
 
     app.config.update(mail_settings)
