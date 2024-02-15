@@ -73,8 +73,8 @@ def send_email(to, subject, body):
         "MAIL_SERVER": "smtp.gmail.com",
         "MAIL_PORT": 587,
         "MAIL_USE_TLS": True,
-        "MAIL_USERNAME": "",
-        "MAIL_PASSWORD": "",
+        "MAIL_USERNAME": "dev1.wappnet@gmail.com",
+        "MAIL_PASSWORD": "gspkqdskosxfstyq",
     }
 
     app.config.update(mail_settings)
@@ -214,6 +214,13 @@ def verify_and_generate_token():
     data = request.get_json()
     email = data.get('email')
     verification_code = data.get('verification_code')
+    
+    if not email:
+        return jsonify({"error":"Please provide your email address."})
+    
+    if not verification_code:
+        return jsonify({"error":"Please provide the OTP received on your email."})
+        
 
     # Load users from JSON file
     try:
@@ -277,28 +284,12 @@ def verify_and_generate_token():
     return jsonify({"error": "Incorrect verification code or user ID"})
 
 
-
 @app.route("/reset_password", methods=["POST"])
 def reset_password():
     data = request.get_json()
     # email = data.get("email")
     token = data.get("verification_token")
     new_password = data.get("new_password")
-
-    # Load users from JSON file
-    try:
-        with open("users.json", "r") as f:
-            users = json.load(f)
-    except FileNotFoundError:
-        return jsonify({"error": "User database not found"})
-
-    # Find the user with the provided email
-    user = next((user for user in users if user["email"] == email), None)
-    if not user:
-        return jsonify({"error": "User not found"})
-
-    # Get the user_id
-    user_id = user["user_id"]
 
     # Load activation token data from JSON file
     try:
@@ -309,14 +300,29 @@ def reset_password():
 
     # Check if the token matches any entry in activation data
     token_matched = False
+    user_id = None
     for entry in activation_data:
-        if entry["user_id"] == user_id and entry["verification_token"] == token:
+        if entry["verification_token"] == token:
             token_matched = True
+            user_id = entry["user_id"]
             break
 
-    if not token_matched:
+    if not token_matched or not user_id:
         return jsonify({"error": "Invalid or expired token"})
-    
+
+    # Load users from JSON file
+    try:
+        with open("users.json", "r") as f:
+            users = json.load(f)
+    except FileNotFoundError:
+        return jsonify({"error": "User database not found"})
+
+    # Find the user with the provided user_id
+    user = next((user for user in users if user["user_id"] == user_id), None)
+    if not user:
+        return jsonify({"error": "User not found"})
+
+    # Hash the new password
     hashed_new_password = hashlib.sha256(new_password.encode('utf-8')).hexdigest()
 
     # Update the password for the user
@@ -326,8 +332,11 @@ def reset_password():
     with open("users.json", "w") as f:
         json.dump(users, f, indent=4)
 
-    return jsonify({"message": "Password reset successfully"})
+    # Empty the activation token data
+    with open("activationtoken.json", "w") as f:
+        json.dump([], f)
 
+    return jsonify({"message": "Password reset successfully"})
 
 
 if __name__ == "__main__":

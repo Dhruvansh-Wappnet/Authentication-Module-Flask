@@ -46,5 +46,11 @@
         "username": "dev",
         "email": "dev@mailinator.com",
         "password": "a78f8128f2109434daf14d867c665d97a242909409b29bc0a965111d8a4a9f80"
+    },
+    {
+        "user_id": 9,
+        "username": "Anchal",
+        "email": "Anchal@mailinator.com",
+        "password": "4ddfea30784a0a22220ee752d9cb199f0c447745f426e92794d3973498f88a25"
     }
 ]
